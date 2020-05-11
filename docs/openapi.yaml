@@ -10,70 +10,46 @@ info:
   x-logo:
     url: >-
       https://00e9e64bac1a776f696d05165628950078386ff741dfd0d513-apidata.googleusercontent.com/download/storage/v1/b/dvr-assets/o/shape-logo-text.svg?qk=AD5uMEuV466wZKzCS-hp_xsx3rBzOV41RnMf2uQUbfRL_Dh3xpXxTGCCrTuUKjLQmomOpdX9nKc0svXkNVbDkrKI3gy1RAkZIiy966JTsWr-Ya1rAS1n9dzrykQKv-27nGJOTDuBSWvuiqcPPEP3p5RoMLoxgaMGK3Q90_MwxRaouOTbo_27HfLGF9jxIyckWKDgusx0ZVop4rK0GFDONet2loRtEB3u335XrphVrklF6nqcXXcsvDm89TVRh9M9KUOyPbfTE3HjwFR8sbCYGrfyT4QyxgsCx0RTsFd10sD-DRq4XJKRplgYSANp5-z5tnBNZX79dBN49E2Ej8nJUQZHIka7dxV_c_w8VZ5O4aqFKE9OoRp-Ua5QooF_c6fE9mXQm9a7FP6wdl82iWVM45bbTTYr3W0ZWl4HLBFh8QihbBakmBOQBOwvSv7GIN53FrywK2qv7j0JOCvKv5KlGJiZGoAy0onH1mbKR4fiDa4W_xPpbCitAvFixBhZ9wIzgJmVq7p9PT29zGXEXlLFaMCCFkjhUE_THF0X_FsLgiG5livRUDwTlvolmG9ENN0tuTPoTZ-Biqd7PTW57hRGN7PQrL7jUqtL83kWI9O2HQX_6ClrlLs-BwX62egUIs3f_cG8JFsiAeU8mR-gQYYssQmLg6YTNaBusBuroAFTwRbqUqbrl_rbVn4bVZvrq8exfa3dwNHrYGabm-0NjwZz2pk2wzpdf103kVmM2yyL-MMOqAzRHN_n8QE1EUMKBcp1_Bd7Rn-soDJ2hea3lkjl4tQXxRlIhSNEmT_9mfggk8E1ydbp2UAS32g&isca=1
-  description: >
-    This is the documentation for the Deep Visual Reasoning (DVR) API.
-
+  description: |
     # Introduction
 
+    This is the documentation for the Deep Visual Reasoning (DVR) API. \
 
-    # OpenAPI Specification
-
-    The goal of The OpenAPI Specification is to define a standard,
-    language-agnostic interface to REST APIs which
-
-    allows both humans and computers to discover and understand the capabilities
-    of the service without access to source
-
-    code, documentation, or through network traffic inspection. When properly
-    defined via OpenAPI, a consumer can
-
-    understand and interact with the remote service with a minimal amount of
-    implementation logic. Similar to what
-
-    interfaces have done for lower-level programming, OpenAPI removes the
-    guesswork in calling the service.
+    The API can be used to process video content and extract events of interest.
 externalDocs:
-  description: Find out how to create a GitHub repo for your OpenAPI definition.
-  url: 'https://github.com/Rebilly/generator-openapi-repo'
+  description: >-
+    the public repository for theAPI specification is available at
+    https://shapes-a1.github.io/dvr-openapi
+  url: 'https://shapes-a1.github.io/dvr-openapi'
 tags:
-  - name: Echo
-    description: Example echo operations
-  - name: User
-    description: Operations about user
+  - name: Jobs
+    description: >-
+      Jobs operations allow clients to submit videos for processing and retrieve
+      information about their status
+  - name: Usage
+    description: >-
+      Usage operations allow clients to retrieve information about their compute
+      quota usage
 servers:
-  - url: 'http://example.com/api/v1'
-  - url: 'https://example.com/api/v1'
+  - url: 'https://dvrbeta.shapes.ai/api'
 paths:
-  '/users/{username}':
-    parameters:
-      - name: pretty_print
-        in: query
-        description: Pretty print response
-        schema:
-          type: boolean
+  '/jobs/{id}':
     get:
       tags:
-        - User
-      summary: Get user by user name
-      description: |
-        Some description of the operation. 
-        You can use `markdown` here.
-      operationId: getUserByName
+        - Jobs
+      summary: Get Job By ID
+      description: >
+        returns information about a job including its status and the final
+        output once completed
+      operationId: getJobById
       parameters:
-        - name: username
+        - name: id
           in: path
-          description: The name that needs to be fetched
+          description: The job id that needs to be fetched
           required: true
           schema:
             type: string
-        - name: with_email
-          in: query
-          description: Filter users without email
-          schema:
-            type: boolean
       security:
-        - main_auth:
-            - 'read:users'
         - api_key: []
       responses:
         '200':
@@ -81,139 +57,253 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-              example:
-                username: user1
-                email: user@example.com
-        '403':
-          description: Forbidden
-        '404':
-          description: User not found
-    put:
-      tags:
-        - User
-      summary: Updated user
-      description: This can only be done by the logged in user.
-      operationId: updateUser
-      parameters:
-        - name: username
-          in: path
-          description: The name that needs to be updated
-          required: true
-          schema:
-            type: string
-      security:
-        - main_auth:
-            - 'write:users'
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Invalid user supplied
-        '404':
-          description: User not found
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-        description: Updated user object
-        required: true
-  /echo:
-    post:
-      tags:
-        - Echo
-      summary: Echo test
-      description: Receive the exact message you've sent
-      operationId: echo
-      security:
-        - api_key: []
-        - basic_auth: []
-      responses:
-        '200':
-          description: OK
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the user
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              $ref: '#/components/headers/ExpiresAfter'
+                $ref: '#/components/schemas/job_info'
+        '401':
+          description: Invalid or Missing API Key
           content:
             application/json:
               schema:
-                type: string
-              examples:
-                response:
-                  value: Hello world!
-            application/xml:
+                $ref: '#/components/schemas/401'
+        '404':
+          description: Not found
+          content:
+            application/json:
               schema:
-                type: string
-            text/csv:
+                $ref: '#/components/schemas/404'
+        '500':
+          description: Internal Eerror
+          content:
+            application/json:
               schema:
-                type: string
+                $ref: '#/components/schemas/500'
+    post:
+      tags:
+        - Jobs
+      summary: Create A New Job
+      description: Requires authentication and sufficient compute minutes
+      operationId: postJob
+      security:
+        - api_key: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/job_info'
+        '401':
+          description: Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
       requestBody:
         content:
           application/json:
             schema:
-              type: string
-              example: Hello world!
-          application/xml:
-            schema:
-              type: string
-              example: Hello world!
-        description: Echo payload
+              $ref: '#/components/schemas/create'
+        description: Create job object
         required: true
+  /usage:
+    get:
+      tags:
+        - Usage
+      summary: Get User's Usage Information
+      description: |
+        returns information total and available usage in minutes:seconds
+      operationId: getUsage
+      security:
+        - api_key: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usage_info'
+        '401':
+          description: Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '404':
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
 components:
   securitySchemes:
-    main_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: 'http://example.com/api/oauth/dialog'
-          scopes:
-            'read:users': read users info
-            'write:users': modify or remove users
     api_key:
+      description: >
+        This scheme relies on authenticating users by having them present an
+        `Authorization` header containing the value `Bearer` followed by their
+        API Key.
+
+
+        Example `Authorization: Bearer my-api-key`
+
+
+        API Key can be requests by submitting an email to developer@shapes.ai
       type: apiKey
       in: header
-      name: api_key
-    basic_auth:
-      type: http
-      scheme: basic
+      name: Authorization
   schemas:
-    Email:
-      description: User email address
-      type: string
-      format: test
-      example: john.smith@example.com
-    User:
+    '401':
       type: object
       properties:
-        username:
-          description: User supplied username
+        status:
+          description: HTTP status code
+          type: integer
+          example: 401
+        error:
+          description: error message
           type: string
-          minLength: 4
-          example: John78
-        firstName:
-          description: User first name
+          example: invalid API key
+    '404':
+      type: object
+      properties:
+        status:
+          description: HTTP status code
+          type: integer
+          example: 404
+        error:
+          description: error message
           type: string
-          minLength: 1
-          example: John
-        lastName:
-          description: User last name
+          example: item not found
+    '500':
+      type: object
+      properties:
+        status:
+          description: HTTP status code
+          type: integer
+          example: 500
+        error:
+          description: error message containing the request unique identifier
           type: string
-          minLength: 1
-          example: Smith
-        email:
-          $ref: '#/components/schemas/Email'
-  headers:
-    ExpiresAfter:
-      description: date in UTC when token expires
-      schema:
-        type: string
-        format: date-time
+          example: >-
+            unexpected error processing request. error id:
+            74d3d93e-9750-4146-9137-af90131f4c8x
+    job_info:
+      type: object
+      properties:
+        id:
+          description: unique job identifier
+          type: string
+          example: 74d3d93e-9750-4146-9137-af90131f4c8x
+        created_at:
+          description: job creation timestamp (UTC)
+          type: string
+          example: '2020-05-10T17:59:47.123Z'
+        started_at:
+          description: job processing started (UTC)
+          type: string
+          example: '2020-05-10T17:59:47.147Z'
+        completed_at:
+          description: job processing completed (UTC)
+          type: string
+          example: '2020-05-10T18:10:33.614Z'
+        status:
+          description: job status
+          type: string
+          enum:
+            - created
+            - started
+            - failed
+            - completed
+        source:
+          description: input video information
+          type: object
+          properties:
+            url:
+              type: string
+              description: >-
+                source video URL. Currently only Google Cloud Storage links are
+                supported
+              example: 'gs://my-bucket/my-video.mp4'
+        detection_type:
+          type: array
+          description: the type of events to be detected
+          minItems: 1
+          maxItems: 1
+          items:
+            type: string
+            enum:
+              - violence
+              - road_hazard
+              - social_distancing
+        output_url:
+          type: string
+          nullable: true
+          description: output artifacts URL. Available on job completion
+          example: >-
+            https://storage.googleapis.com/my-bucket/74d3d93e-9750-4146-9137-af90131f4c8x/output.json
+        error:
+          type: object
+          nullable: true
+          description: information about job failure. Available on job failure
+          properties:
+            reason:
+              type: string
+              example: description of the error
+    create:
+      type: object
+      properties:
+        source:
+          type: object
+          description: >-
+            input video information. Supported video formats are .mp4, .mov and
+            .avi
+          properties:
+            url:
+              type: string
+              description: >-
+                source video URL. Currently only Google Cloud Storage links are
+                supported
+              example: 'gs://my-bucket/my-video.mp4'
+        detection_type:
+          type: array
+          description: the type of events to be detected
+          minItems: 1
+          maxItems: 1
+          items:
+            type: string
+            enum:
+              - violence
+              - road_hazard
+              - social_distancing
+    usage_info:
+      type: object
+      properties:
+        usage:
+          description: input video information
+          properties:
+            total_minutes:
+              type: string
+              description: total number of minutes of compute used
+              example: '123:45'
+            available_minutes:
+              type: string
+              description: >-
+                available number of minutes of compute to use for processing
+                videos
+              example: '12:34'
