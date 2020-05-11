@@ -32,7 +32,7 @@ items:
             type: integer
             example: 170
           label:
-            description: human readable object label
+            description: human-readable object label
             type: string
             example: person
           score:
@@ -67,7 +67,7 @@ items:
             maximum: 1
             example: 0.8479
           explanation:
-            description: human readable event explanation
+            description: human-readable event explanation
             type: string
             example: "Potential Threat: Two persons (K_6) and (K_2), they are near each other and moving towards each other"
     screenshot:
