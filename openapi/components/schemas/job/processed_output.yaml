@@ -59,15 +59,15 @@ items:
             type: string
             example: violence
           detected:
-            description: description of the event
+            description: functional program description of the event
             type: string
             example: "TOWARDS ( K_6 , K_2 )"
           probability:
-            description: increased or decreased likelihood of the event to happen
+            description: probability sequence of event
             type: string
             example: "ADD ( 0.8479 )"
           total_probability:
-            description: overall event confidence score
+            description: overall event probability/confidence score
             type: number
             minimum: 0
             maximum: 1
