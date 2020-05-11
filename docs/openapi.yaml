@@ -327,10 +327,6 @@ components:
             description: frame timestamp
             type: string
             example: '0:00:00.280000'
-          started_at:
-            description: job processing started (UTC)
-            type: string
-            example: '2020-05-10T17:59:47.147Z'
           frame_objects:
             type: array
             items:
@@ -352,14 +348,22 @@ components:
                   description: y axis bounding box bottom right corner
                   type: integer
                   example: 170
-                label:
-                  description: human readable object label
-                  type: string
-                  example: person
-                score:
-                  description: confidence score
-                  type: number
-                  example: 0.9695325493812561
+                activities:
+                  type: array
+                  description: >-
+                    collection of the top 5 detected activities in the current
+                    frame
+                  items:
+                    type: object
+                    properties:
+                      label:
+                        description: human-readable object label
+                        type: string
+                        example: person
+                      score:
+                        description: confidence score
+                        type: number
+                        example: 0.9695325493812561
                 id:
                   description: the object identifier
                   type: string
@@ -388,7 +392,7 @@ components:
                   maximum: 1
                   example: 0.8479
                 explanation:
-                  description: human readable event explanation
+                  description: human-readable event explanation
                   type: string
                   example: >-
                     Potential Threat: Two persons (K_6) and (K_2), they are near
