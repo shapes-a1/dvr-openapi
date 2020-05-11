@@ -12,7 +12,7 @@ info:
   description: |
     # Introduction
 
-    This is the documentation for the Deep Visual Reasoning (DVR) API. \
+    This is the documentation for the Deep Visual Reasoning (DVR) API.
 
     The API can be used to process video content and extract events of interest.
 externalDocs:
@@ -25,6 +25,11 @@ tags:
     description: >-
       Jobs operations allow clients to submit videos for processing and retrieve
       information about their status
+  - name: JobOutput
+    description: >-
+      This JSON scheme is not returned directly by the API. It can be accessed
+      once a job has been processed by accessing the `output_url` value returned
+      from GETing job/job-id
   - name: Usage
     description: >-
       Usage operations allow clients to retrieve information about their compute
@@ -115,6 +120,25 @@ paths:
               $ref: '#/components/schemas/create'
         description: Create job object
         required: true
+  /output:
+    get:
+      tags:
+        - JobOutput
+      summary: Processed JSON Definition
+      description: >
+        This JSON scheme is not returned directly by the API.
+
+
+        It can be accessed once a job has been processed by following the
+        `output_url` value returned from job/job-id
+      operationId: getJobProcessedOutput
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/processed_output'
   /usage:
     get:
       tags:
@@ -290,6 +314,95 @@ components:
               - violence
               - road_hazard
               - social_distancing
+    processed_output:
+      type: array
+      items:
+        type: object
+        properties:
+          frame:
+            description: frame number
+            type: integer
+            example: 1
+          timestamp:
+            description: frame timestamp
+            type: string
+            example: '0:00:00.280000'
+          frame_objects:
+            type: array
+            items:
+              type: object
+              properties:
+                x1:
+                  description: x axis bounding box top left corner
+                  type: integer
+                  example: 0
+                y1:
+                  description: y axis bounding box top left corner
+                  type: integer
+                  example: 46
+                x2:
+                  description: x axis bounding box bottom right corner
+                  type: integer
+                  example: 40
+                y2:
+                  description: y axis bounding box bottom right corner
+                  type: integer
+                  example: 170
+                activities:
+                  type: array
+                  description: >-
+                    collection of the top 5 detected activities in the current
+                    frame
+                  items:
+                    type: object
+                    properties:
+                      label:
+                        description: human-readable object label
+                        type: string
+                        example: fight/hit (a person)
+                      score:
+                        description: confidence score
+                        type: number
+                        example: 0.9695325493812561
+                id:
+                  description: the object identifier
+                  type: string
+                  example: K_2
+          frame_events:
+            type: array
+            items:
+              type: object
+              properties:
+                event_type:
+                  description: type of event detected
+                  type: string
+                  example: violence
+                detected:
+                  description: functional program description of the event
+                  type: string
+                  example: 'TOWARDS ( K_6 , K_2 )'
+                probability:
+                  description: probability sequence of event
+                  type: string
+                  example: ADD ( 0.8479 )
+                total_probability:
+                  description: overall event probability/confidence score
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  example: 0.8479
+                explanation:
+                  description: human-readable event explanation
+                  type: string
+                  example: >-
+                    Potential Threat: Two persons (K_6) and (K_2), they are near
+                    each other and moving towards each other
+          screenshot:
+            description: >-
+              URL of the frame screenshot. Currently only Google Cloud Storage
+              links are supported
+            type: string
+            example: 'gs://bucket-name/job-id/screenshots/frame1.jpg'
     usage_info:
       type: object
       properties:

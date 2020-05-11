@@ -1,0 +1,16 @@
+get:
+  tags:
+    - JobOutput
+  summary: Processed JSON Definition
+  description: |
+    This JSON scheme is not returned directly by the API.
+
+    It can be accessed once a job has been processed by following the `output_url` value returned from job/job-id
+  operationId: getJobProcessedOutput
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/job/processed_output.yaml

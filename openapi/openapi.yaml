@@ -12,7 +12,7 @@ info:
   description: |
     # Introduction
 
-    This is the documentation for the Deep Visual Reasoning (DVR) API. \
+    This is the documentation for the Deep Visual Reasoning (DVR) API.
 
     The API can be used to process video content and extract events of interest.
 
@@ -23,6 +23,8 @@ externalDocs:
 tags:
   - name: Jobs
     description: Jobs operations allow clients to submit videos for processing and retrieve information about their status
+  - name: JobOutput
+    description: This JSON scheme is not returned directly by the API. It can be accessed once a job has been processed by accessing the `output_url` value returned from GETing job/job-id
   - name: Usage
     description: Usage operations allow clients to retrieve information about their compute quota usage
 servers:
@@ -30,6 +32,8 @@ servers:
 paths:
   "/jobs/{id}":
     $ref: "paths/jobs@{id}.yaml"
+  "/output":
+    $ref: "paths/job_output.yaml"
   "/usage":
     $ref: "paths/usage.yaml"
 components:
