@@ -1,0 +1,13 @@
+type: object
+properties:
+  usage:
+    description: input video information
+    properties:
+      total_minutes:
+        type: string
+        description: total number of minutes of compute used
+        example: "123:45"
+      available_minutes:
+        type: string
+        description: available number of minutes of compute to use for processing videos
+        example: "12:34"

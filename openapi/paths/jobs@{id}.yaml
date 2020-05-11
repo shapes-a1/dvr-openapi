@@ -20,7 +20,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/job/info.yaml
+            $ref: ../components/schemas/job/job_info.yaml
     "401":
       description: Invalid or missing API key
       content:
@@ -53,7 +53,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/job/info.yaml
+            $ref: ../components/schemas/job/job_info.yaml
     "401":
       description: Invalid or missing API key
       content:
