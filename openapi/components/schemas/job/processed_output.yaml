@@ -4,7 +4,7 @@ items:
   properties:
     frame:
       description: frame number
-      type: int
+      type: integer
       example: 1
     timestamp:
       description: frame timestamp
@@ -46,9 +46,34 @@ items:
           id:
             description: the object identifier
             type: string
-            example: K_0
+            example: K_2
     frame_events:
       type: array
+      items:
+        type: object
+        properties:
+          event_type:
+            description: type of event detected
+            type: string
+            example: violence
+          detected:
+            description: description of the event
+            type: string
+            example: "TOWARDS ( K_6 , K_2 )"
+          probability:
+            description: increased or decreased likelihood of the event to happen
+            type: string
+            example: "ADD ( 0.8479 )"
+          total_probability:
+            description: overall event confidence score
+            type: number
+            minimum: 0
+            maximum: 1
+            example: 0.8479
+          explanation:
+            description: human readable event explanation
+            type: string
+            example: "Potential Threat: Two persons (K_6) and (K_2), they are near each other and moving towards each other"
     screenshot:
       description: URL of the frame screenshot. Currently only Google Cloud Storage links are supported
       type: string
