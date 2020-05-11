@@ -1,0 +1,24 @@
+type: array
+items:
+  type: object
+  properties:
+    frame:
+      description: frame number
+      type: int
+      example: 1
+    timestamp:
+      description: frame timestamp
+      type: string
+      example: "0:00:00.280000"
+    started_at:
+      description: job processing started (UTC)
+      type: string
+      example: "2020-05-10T17:59:47.147Z"
+    frame_objects:
+      type: array
+    frame_events:
+      type: array
+    screenshot:
+      description: URL of the frame screenshot. Currently only Google Cloud Storage links are supported
+      type: string
+      example: "gs://bucket-name/job-id/screenshots/frame1.jpg"
