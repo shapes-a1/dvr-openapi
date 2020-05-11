@@ -2,7 +2,6 @@ openapi: 3.0.2
 info:
   version: 1.0.0
   title: ShapesAI - Deep Visual Reasoning
-  termsOfService: 'https://example.com/terms/'
   contact:
     name: hello@shapes
     email: hello@shapes.ai
