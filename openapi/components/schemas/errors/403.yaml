@@ -1,0 +1,10 @@
+type: object
+properties:
+  status:
+    description: HTTP status code
+    type: integer
+    example: 403
+  error:
+    description: error message
+    type: string
+    example: "quota exceeded error: no compute time available"

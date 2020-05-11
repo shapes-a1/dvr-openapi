@@ -1,0 +1,81 @@
+get:
+  tags:
+    - Jobs
+  summary: Get Job By ID
+  description: |
+    returns information about a job including its status and the final output once completed
+  operationId: getJobById
+  parameters:
+    - name: id
+      in: path
+      description: The job id that needs to be fetched
+      required: true
+      schema:
+        type: string
+  security:
+    - api_key: []
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/job/info.yaml
+    "401":
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/401.yaml
+    "404":
+      description: Job not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/404.yaml
+    "500":
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/500.yaml
+post:
+  tags:
+    - Jobs
+  summary: Create A New Job
+  description: Requires authentication and sufficient compute minutes
+  operationId: postJob
+  security:
+    - api_key: []
+  responses:
+    "201":
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/job/info.yaml
+    "401":
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/401.yaml
+    "403":
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/404.yaml
+    "500":
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/500.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/job/create.yaml
+    description: Create job object
+    required: true

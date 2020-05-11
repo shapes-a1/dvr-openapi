@@ -20,10 +20,12 @@
         padding: 0;
       }
     </style>
+    {{redocHead}}
   </head>
 
   <body>
-    <redoc spec-url="./openapi.yaml"></redoc>
-    <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
+    {{redocBody}}
+    <!-- <redoc spec-url="./openapi.yaml"></redoc> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script> -->
   </body>
 </html>

@@ -9,7 +9,7 @@ get:
     - User
   summary: Get user by user name
   description: |
-    Some description of the operation. 
+    Some description of the operation.
     You can use `markdown` here.
   operationId: getUserByName
   parameters:
@@ -26,10 +26,10 @@ get:
         type: boolean
   security:
     - main_auth:
-        - 'read:users'
+        - "read:users"
     - api_key: []
   responses:
-    '200':
+    "200":
       description: Success
       content:
         application/json:
@@ -38,9 +38,9 @@ get:
           example:
             username: user1
             email: user@example.com
-    '403':
+    "403":
       description: Forbidden
-    '404':
+    "404":
       description: User not found
 put:
   tags:
@@ -57,13 +57,13 @@ put:
         type: string
   security:
     - main_auth:
-        - 'write:users'
+        - "write:users"
   responses:
-    '200':
+    "200":
       description: OK
-    '400':
+    "400":
       description: Invalid user supplied
-    '404':
+    "404":
       description: User not found
   requestBody:
     content:

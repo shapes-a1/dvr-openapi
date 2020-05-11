@@ -1,0 +1,10 @@
+type: object
+properties:
+  status:
+    description: HTTP status code
+    type: integer
+    example: 500
+  error:
+    description: error message containing the request unique identifier
+    type: string
+    example: "unexpected error processing request. error id: 74d3d93e-9750-4146-9137-af90131f4c8x"

@@ -1,0 +1,58 @@
+type: object
+properties:
+  id:
+    description: unique job identifier
+    type: string
+    example: 74d3d93e-9750-4146-9137-af90131f4c8x
+  created_at:
+    description: job creation timestamp (UTC)
+    type: string
+    example: "2020-05-10T17:59:47.123Z"
+  started_at:
+    description: job processing started (UTC)
+    type: string
+    example: "2020-05-10T17:59:47.147Z"
+  completed_at:
+    description: job processing completed (UTC)
+    type: string
+    example: "2020-05-10T18:10:33.614Z"
+  status:
+    description: job status
+    type: string
+    enum:
+      - created
+      - started
+      - failed
+      - completed
+  source:
+    description: input video information
+    type: object
+    properties:
+      url:
+        type: string
+        description: source video URL. Currently only Google Cloud Storage links are supported
+        example: "gs://my-bucket/my-video.mp4"
+  detection_type:
+    type: array
+    description: the type of events to be detected
+    minItems: 1
+    maxItems: 1
+    items:
+      type: string
+      enum:
+        - violence
+        - road_hazard
+        - social_distancing
+  output_url:
+    type: string
+    nullable: true
+    description: output artifacts URL. Available on job completion
+    example: "https://storage.googleapis.com/my-bucket/74d3d93e-9750-4146-9137-af90131f4c8x/output.json"
+  error:
+    type: object
+    nullable: true
+    description: information about job failure. Available on job failure
+    properties:
+      reason:
+        type: string
+        example: "description of the error"

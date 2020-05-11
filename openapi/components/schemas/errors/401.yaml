@@ -1,0 +1,10 @@
+type: object
+properties:
+  status:
+    description: HTTP status code
+    type: integer
+    example: 401
+  error:
+    description: error message
+    type: string
+    example: invalid API key

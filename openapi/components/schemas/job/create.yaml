@@ -1,0 +1,21 @@
+type: object
+properties:
+  source:
+    type: object
+    description: input video information. Supported video formats are .mp4, .mov and .avi
+    properties:
+      url:
+        type: string
+        description: source video URL. Currently only Google Cloud Storage links are supported
+        example: "gs://my-bucket/my-video.mp4"
+  detection_type:
+    type: array
+    description: the type of events to be detected
+    minItems: 1
+    maxItems: 1
+    items:
+      type: string
+      enum:
+        - violence
+        - road_hazard
+        - social_distancing
