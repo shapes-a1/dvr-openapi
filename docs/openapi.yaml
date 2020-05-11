@@ -359,7 +359,7 @@ components:
                       label:
                         description: human-readable object label
                         type: string
-                        example: person
+                        example: fight/hit (a person)
                       score:
                         description: confidence score
                         type: number
