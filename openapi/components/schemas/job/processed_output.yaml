@@ -10,10 +10,6 @@ items:
       description: frame timestamp
       type: string
       example: "0:00:00.280000"
-    started_at:
-      description: job processing started (UTC)
-      type: string
-      example: "2020-05-10T17:59:47.147Z"
     frame_objects:
       type: array
       items:
