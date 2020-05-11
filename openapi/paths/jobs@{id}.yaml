@@ -22,19 +22,19 @@ get:
           schema:
             $ref: ../components/schemas/job/job_info.yaml
     "401":
-      description: Invalid or missing API key
+      description: Invalid or Missing API Key
       content:
         application/json:
           schema:
             $ref: ../components/schemas/errors/401.yaml
     "404":
-      description: Job not found
+      description: Not found
       content:
         application/json:
           schema:
             $ref: ../components/schemas/errors/404.yaml
     "500":
-      description: Internal error
+      description: Internal Eerror
       content:
         application/json:
           schema:
