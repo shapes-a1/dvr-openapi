@@ -348,6 +348,14 @@ components:
                   description: y axis bounding box bottom right corner
                   type: integer
                   example: 170
+                label:
+                  description: human-readable object label
+                  type: string
+                  example: person
+                score:
+                  description: confidence score
+                  type: number
+                  example: 0.9695325493812561
                 activities:
                   type: array
                   description: >-
@@ -357,7 +365,7 @@ components:
                     type: object
                     properties:
                       label:
-                        description: human-readable object label
+                        description: human-readable activity label
                         type: string
                         example: fight/hit (a person)
                       score:
