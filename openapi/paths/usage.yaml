@@ -21,7 +21,7 @@ get:
           schema:
             $ref: ../components/schemas/errors/401.yaml
     "404":
-      description: Job not found
+      description: User not found
       content:
         application/json:
           schema:
