@@ -65,7 +65,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/errors/404.yaml
+            $ref: ../components/schemas/errors/403.yaml
     "500":
       description: Internal error
       content:
