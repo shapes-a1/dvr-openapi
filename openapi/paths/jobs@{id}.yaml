@@ -61,7 +61,7 @@ post:
           schema:
             $ref: ../components/schemas/errors/401.yaml
     "403":
-      description: Invalid or missing API key
+      description: Compute quota exceeded
       content:
         application/json:
           schema:
